@@ -64,7 +64,7 @@ function Main(){
 	git pull origin ${localDirName}
 	Judge_Order "获取最新${localDirName}分支成功!" "获取最新${localDirName}分支失败!" 0
 	Local_Push
-#	Remote_Push
+	Remote_Push
 }
 
 Main
