@@ -1,6 +1,6 @@
 #! /bin/bash
 
-function Main()
+function Configuration()
 {
 	#========================================
 	#需要更改的参数
@@ -36,5 +36,5 @@ function Main()
 	fi
 
 }
-
-Main
+sudo apt-get install git -y
+Configuration
