@@ -45,6 +45,8 @@ function Main()
 		git checkout ${localDirName}  >/dev/null 2>&1
 		Judge_Order "切换至${localDirName}分支成功!" "切换至${localDirName}分支失败!" 0
 	fi
+	git branch -d master
+	Judge_Order "删除master分支成功!" "删除master分支失败!" 1
 }
 
 Main
