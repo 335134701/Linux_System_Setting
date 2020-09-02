@@ -25,7 +25,7 @@ function Remote_Push()
 	echo
 	#添加远程仓库 git remote add <名称> <URL>
 	git remote add origin ${repository}
-	Judge_Order "添加远程仓库成功!" "添加远程仓库失败!" 0
+	Judge_Order "添加远程仓库成功!" "添加远程仓库失败!" 1
 	git push -u origin ${localDirName}
 	Judge_Order "推送到远程仓库成功" "推送到远程仓库失败" 0
 	echo
