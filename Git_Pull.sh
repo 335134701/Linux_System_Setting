@@ -1,5 +1,6 @@
 #! /bin/bash
 
+
 #判断命令是否执行成功
 #${1}:执行的命令语句
 function Judge_Order(){
@@ -19,24 +20,39 @@ function Judge_Order(){
 		return 80
 	fi
 }
-
-function Main(){
+function Main()
+{
 	#=======================================================
 	#参数更改
 	repository=git@github.com:335134701/Linux_System_Setting.git
-	#=======================================================
 	localDir=$(pwd)
 	localDirName=${localDir##*/}
+	#=======================================================
 	git --version >/dev/null 2>&1
 	Judge_Order "Git已安装!" "Git未安装!" 0
-	git checkout -b ${localDirName}  >/dev/null 2>&1
-	if [ ${?} -eq 128 ];then
+	if [ ! -d ${localDir}/.git ];then
+		git init >/dev/null 2>&1
+		Judge_Order "git init成功!" "git init失败!" 0
+	fi
+	#添加远程仓库 git remote add <名称> <URL>
+	git remote add origin ${repository}
+	Judge_Order "添加远程仓库成功!" "添加远程仓库失败!" 1
+	eval "$(ssh-agent -s)" ssh-add
+	$(git branch |grep -q "${localDirName}")
+	if [ ${?} -eq 0 ];then
 		git checkout ${localDirName}  >/dev/null 2>&1
 		Judge_Order "切换至${localDirName}分支成功!" "切换至${localDirName}分支失败!" 0
+	elif [ ${?} -eq 1 ];then
+		git checkout -b ${localDirName}  >/dev/null 2>&1
+		Judge_Order "创建${localDirName}分支成功!" "创建${localDirName}分支失败!" 0
 	fi
-	eval "$(ssh-agent -s)" 
-	ssh-add
+	$(git branch -a |grep -q "remotes/origin/${localDirName}")
+	if [ ${?} -ne 0 ];then
+		git fetch origin ${localDirName}
+		Judge_Order "拉取远程${localDirName}分支成功!" "拉取远程${localDirName}分支失败!" 0
+	fi
 	git pull origin ${localDirName}
-	Judge_Order "获取最新${localDirName}分支成功!" "获取最新${localDirName}分支失败!" 0
+	Judge_Order "获取最新的${localDirName}分支成功" "获取最新的${localDirName}分支失败!" 0
 }
+
 Main
