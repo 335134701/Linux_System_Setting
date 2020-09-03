@@ -24,9 +24,9 @@ function Remote_Push()
 {
 	echo
 	#添加远程仓库 git remote add <名称> <URL>
-	git remote add origin ${repository}
+	git remote add origin ${repository} >/dev/null 2>&1
 	Judge_Order "添加远程仓库成功!" "添加远程仓库失败!" 1
-	git push -u origin ${localDirName}
+	git push -u origin ${localDirName} >/dev/null 2>&1
 	Judge_Order "推送到远程仓库成功" "推送到远程仓库失败" 0
 	echo
 }
@@ -41,8 +41,8 @@ function Local_Push()
 		exit 127
 	fi
 	#将文件的修改、文件的删除、文件的新建，添加到暂存区
-	git add -A
-	git commit -m "$(date "+%Y-%m-%d %H:%M:%S") : ${input}"	
+	git add -A >/dev/null 2>&1
+	git commit -m "$(date "+%Y-%m-%d %H:%M:%S") : ${input}"	>/dev/null 2>&1
 	echo 
 }
 function Main(){
@@ -60,7 +60,7 @@ function Main(){
 		Judge_Order "切换至${localDirName}分支成功!" "切换至${localDirName}分支失败!" 0
 	fi
 	eval "$(ssh-agent -s)" ssh-add
-	git pull origin ${localDirName}
+	git pull origin ${localDirName} >/dev/null 2>&1
 	Judge_Order "获取最新${localDirName}分支成功!" "获取最新${localDirName}分支失败!" 0
 	Local_Push
 	Remote_Push
