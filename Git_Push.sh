@@ -49,9 +49,9 @@ function Main(){
 	#=======================================================
 	#参数更改
 	repository=git@github.com:335134701/Linux_System_Setting.git
-	#=======================================================
 	localDir=$(pwd)
 	localDirName=${localDir##*/}
+	#=======================================================
 	git --version >/dev/null 2>&1
 	Judge_Order "Git已安装!" "Git未安装!" 0
 	git checkout -b ${localDirName}  >/dev/null 2>&1
@@ -59,8 +59,7 @@ function Main(){
 		git checkout ${localDirName}  >/dev/null 2>&1
 		Judge_Order "切换至${localDirName}分支成功!" "切换至${localDirName}分支失败!" 0
 	fi
-	eval "$(ssh-agent -s)" 
-	ssh-add
+	eval "$(ssh-agent -s)" ssh-add
 	git pull origin ${localDirName}
 	Judge_Order "获取最新${localDirName}分支成功!" "获取最新${localDirName}分支失败!" 0
 	Local_Push
