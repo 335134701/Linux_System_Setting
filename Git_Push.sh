@@ -62,8 +62,13 @@ function Main(){
 	eval "$(ssh-agent -s)" ssh-add
 	git pull origin ${localDirName} >/dev/null 2>&1
 	Judge_Order "获取最新${localDirName}分支成功!" "获取最新${localDirName}分支失败!" 0
-	Local_Push
-	Remote_Push
+	updateCount=(`git status -s`)
+	if [ ${#updateCount[*]} -ne 0 ];then
+		Local_Push
+		Remote_Push
+	else
+		echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""\033[32m暂无需要更新内容!\033[0m"
+	fi
 }
 
 Main
