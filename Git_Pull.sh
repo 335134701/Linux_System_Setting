@@ -8,9 +8,9 @@ function Judge_Order(){
 	if [ ${#} -eq 3 ];then
 		#判断上一条命令的返回值是否为0，若为0则执行成功，若不为0则执行失败
 		if [ ${status} -eq 0 ];then
-			echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""\033[32m\"${1}\" \033[0m"
+			echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""\033[32m${1}\033[0m"
 		else 
-			echo -e "[\033[33m$(date +"%Y-%m-%d %T") Warning\033[0m]  ""\033[33m\"${2}\" \033[0m"
+			echo -e "[\033[33m$(date +"%Y-%m-%d %T") Warning\033[0m]  ""\033[33m${2}\033[0m"
 			if [ "${3}" -eq 0 ];then
 				exit 127
 			fi
@@ -36,7 +36,7 @@ function Main()
 	fi
 	#添加远程仓库 git remote add <名称> <URL>
 	git remote add origin ${repository}
-	Judge_Order "添加远程仓库成功!" "添加远程仓库失败!" 1
+	Judge_Order "添加远程仓库成功!" "添加远程仓库失败,远程仓库已存在!" 1
 	#解决Permission denied的问题
 	eval "$(ssh-agent -s)" ssh-add
 	#判断本地有无${localDirName}分支,若没有则创建本地${localDirName}分支,并创建提交文件README.md

@@ -7,9 +7,9 @@ function Judge_Order(){
 	if [ ${#} -eq 3 ];then
 		#判断上一条命令的返回值是否为0，若为0则执行成功，若不为0则执行失败
 		if [ ${status} -eq 0 ];then
-			echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""\033[32m\"${1}\" \033[0m"
+			echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""\033[32m${1}\033[0m"
 		else 
-			echo -e "[\033[33m$(date +"%Y-%m-%d %T") Warning\033[0m]  ""\033[33m\"${2}\" \033[0m"
+			echo -e "[\033[33m$(date +"%Y-%m-%d %T") Warning\033[0m]  ""\033[33m${2}\033[0m"
 			if [ "${3}" -eq 0 ];then
 				exit 127
 			fi
@@ -25,7 +25,7 @@ function Remote_Push()
 	echo
 	#添加远程仓库 git remote add <名称> <URL>
 	git remote add origin ${repository} >/dev/null 2>&1
-	Judge_Order "添加远程仓库成功!" "添加远程仓库失败!" 1
+	Judge_Order "添加远程仓库成功!" "添加远程仓库失败,远程仓库已存在!" 1
 	git push -u origin ${localDirName} >/dev/null 2>&1
 	Judge_Order "推送到远程仓库成功" "推送到远程仓库失败" 0
 	echo
@@ -34,7 +34,7 @@ function Remote_Push()
 function Local_Push()
 {
 	echo 
-	read -t 20 -p "Input a text to describe the change:" input
+	read -t 60 -p "Input a text to describe the change:" input
 	if [ -z ${input} ];then
 		echo
 		echo -e "[\033[31m$(date +"%Y-%m-%d %T") Error\033[0m] Your input is timeout!"
