@@ -27,7 +27,7 @@ function Remote_Push()
 	git remote add origin ${repository} >/dev/null 2>&1
 	Judge_Order "添加远程仓库成功!" "添加远程仓库失败,远程仓库已存在!" 1
 	git push -u origin ${localDirName} >/dev/null 2>&1
-	Judge_Order "推送到远程仓库成功" "推送到远程仓库失败" 0
+	Judge_Order "推送到远程${localDirName}分支成功!" "推送到远程${localDirName}分支失败!" 0
 	echo
 }
 #本地提交
@@ -43,6 +43,7 @@ function Local_Push()
 	#将文件的修改、文件的删除、文件的新建，添加到暂存区
 	git add -A >/dev/null 2>&1
 	git commit -m "$(date "+%Y-%m-%d %H:%M:%S") : ${input}"	>/dev/null 2>&1
+	Judge_Order "本地${localDirName}分支提交更新成功!" "本地${localDirName}分支提交更新失败!" 0
 	echo 
 }
 function Main(){
