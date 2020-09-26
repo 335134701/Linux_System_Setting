@@ -624,9 +624,9 @@ function Main()
 		sudo apt-get install openssh-server -y
 		Judge_Order "sudo apt-get install openssh-server -y" 0
 		#第十八步:安装Frp客户端
-		Software_Install "Install_Frp"
+		#Software_Install "Install_Frp"
 		#第十九步:上传Pi.jar包,并测试是否可用
-		Software_Install "Upload_Pi"
+		#Software_Install "Upload_Pi"
 	else
 		echo -e ${WARNTime}"界面设置未完成,程序即将退出!"
 		exit 127
