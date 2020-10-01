@@ -55,7 +55,7 @@ function Main()
 		git fetch origin ${localDirName}
 		if [ ${?} -eq 0 ];then
 			echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""\033[32m拉取远程${localDirName}分支成功!\033[0m"
-			#sudo rm -rf *
+			sudo rm -rf *
 			git pull origin ${localDirName} >/dev/null 2>&1
 			Judge_Order "获取最新的${localDirName}分支成功" "获取最新的${localDirName}分支失败!" 0
 		else
