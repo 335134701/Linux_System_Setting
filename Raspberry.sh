@@ -597,6 +597,8 @@ function Main()
 	#第八步:安装中文输入法:
 	sudo apt-get install scim-pinyin -y
 	Judge_Order "sudo apt-get install scim-pinyin" 0
+	#/boot/cmdline.txt
+	# +usbhid.mousepoll=0
 	#第九步:安装vim编辑器
 	sudo apt-get install vim -y
 	Judge_Order "sudo apt-get install vim -y" 0
