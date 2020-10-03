@@ -597,11 +597,17 @@ function Main()
 	#第八步:安装中文输入法:
 	sudo apt-get install scim-pinyin -y
 	Judge_Order "sudo apt-get install scim-pinyin" 0
+	#如果鼠标出现延迟现象的解决办法是:
 	#/boot/cmdline.txt
-	# +usbhid.mousepoll=0
+	#在第一行的末尾添加下列语句，修改完成后重启，注意一定不要换行  
+	#usbhid.mousepoll=0
+	#如果中文界面设置不成功的解决办法是：
 	#/boot/default/locale
-	#LC_ALL=en_US.UTF-8  ->   LC_ALL=zh_CN.UTF-8
-	#LANGUAGE=en_US.UTF-8  -> #LANGUAGE=en_US.UTF-8
+	#修改下列命令，LANGUAGE添加注释，修改完成后重启
+	#LC_ALL=en_US.UTF-8    改为->   LC_ALL=zh_CN.UTF-8
+	#LANGUAGE=en_US.UTF-8  改为->   #LANGUAGE=en_US.UTF-8
+	#scim输入法设置不成功的解决办法：
+	#点击树mei派图标-》首选项 -> scim -》重启
 	#第九步:安装vim编辑器
 	sudo apt-get install vim -y
 	Judge_Order "sudo apt-get install vim -y" 0
