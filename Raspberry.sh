@@ -599,6 +599,9 @@ function Main()
 	Judge_Order "sudo apt-get install scim-pinyin" 0
 	#/boot/cmdline.txt
 	# +usbhid.mousepoll=0
+	#/boot/default/locale
+	#LC_ALL=en_US.UTF-8  ->   LC_ALL=zh_CN.UTF-8
+	#LANGUAGE=en_US.UTF-8  -> #LANGUAGE=en_US.UTF-8
 	#第九步:安装vim编辑器
 	sudo apt-get install vim -y
 	Judge_Order "sudo apt-get install vim -y" 0
