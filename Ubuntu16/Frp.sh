@@ -180,7 +180,7 @@ function Main()
 	#local_ip=$(LC_ALL=C ifconfig|grep "inet addr:"|grep -v "127.0.0.1"|cut -d: -f2|awk '{print $1}')
 	#下列方法会获取ech0 和wlan0两种IP地址
 	local_ip=$(ifconfig -a |grep inet |grep -v 127.0.0.1 |grep -v inet6|awk '{print $2}')
-	local_ip=$( echo ${local_ip} | cut -d ":" -f2)
+	local_ip=$(echo ${local_ip} | cut -d ":" -f2)
 	#ssh对应的端口号，根据实际修改
 	ssh_remote_port=6868
 	#*********************************************************
