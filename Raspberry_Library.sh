@@ -267,9 +267,9 @@ function Software_Install()
 }
 function Run_SHFile()
 {
-	if [ ! -f ${1} ];then
+	if [ -f ${1} ];then
 		sudo chmod 755 ${1}
-		./${1}
+		${1}
 		Judge_Order "${1}" 1
 	else
 		echo -e "\033[31mThe file ${1} is not existence!\033[0m"
