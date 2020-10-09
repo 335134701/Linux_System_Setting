@@ -279,7 +279,7 @@ function Software_Install()
 #${1}:脚本文件名称及目录
 function Run_SHFile()
 {
-	if [ ! -f ${1} ];then
+	if [ -f ${1} ];then
 		sudo chmod 755 ${1}
 		./${1}
 		Judge_Order "${1}" 1

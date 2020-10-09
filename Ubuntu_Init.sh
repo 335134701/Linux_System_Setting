@@ -108,11 +108,21 @@ function Default_Configuration()
         #以menuentry开头的即为引导项
 	
 }
-function Chang_YUM(){ Run_SHFile "$(pwd)/Chang_YUM.sh" }
-function Default_Software_Install(){ Run_SHFile "$(pwd)/Default_Software_Install.sh" }
-function Sougou_Install(){ Run_SHFile "$(pwd)/Sougou_Install.sh" }
-function Chrome_Install(){ Run_SHFile "$(pwd)/Chrome_Install.sh" }
-function JDK_Install(){ Run_SHFile "$(pwd)/JDK_Install.sh" }
+function Chang_YUM(){ 
+	Run_SHFile "$(pwd)/Chang_YUM.sh"
+}
+function Default_Software_Install(){ 
+	Run_SHFile "$(pwd)/Default_Software_Install.sh" 
+}
+function Sougou_Install(){ 
+	Run_SHFile "$(pwd)/Sougou_Install.sh" 
+}
+function Chrome_Install(){ 
+	Run_SHFile "$(pwd)/Chrome_Install.sh" 
+}
+function JDK_Install(){ 
+	Run_SHFile "$(pwd)/JDK_Install.sh"
+}
 function Systembach_Install()
 {
 	sudo add-apt-repository ppa:nemh/systemback -y
@@ -121,7 +131,9 @@ function Systembach_Install()
 	Judge_Order "sudo apt-get -y update && sudo apt-get install systemback unionfs-fuse -y" 0
 	Judge_Order "Systembach_Install()" 1
 }
-function QT_Install(){ Run_SHFile "$(pwd)/QT_Install.sh" }
+function QT_Install(){ 
+	Run_SHFile "$(pwd)/QT_Install.sh" 
+}
 function Main()
 {
 	#Step 1: 校验库文件是否存在
@@ -145,6 +157,5 @@ function Main()
 	Software_Install "Systembach_Install"
 	#Step 10:安装QT
 	Software_Install "QT_Install"
-	
 }
 Main
