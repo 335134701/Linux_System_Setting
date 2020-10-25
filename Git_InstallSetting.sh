@@ -9,8 +9,8 @@ function Configuration()
 	#邮箱
 	useremail=335134701@qq.com
 	#========================================
-	git config --global user.name=${username}
-	git config --global user.email=${useremail}
+	git config --global user.name "${username}"
+	git config --global user.email "${useremail}"
 	git config --global color.ui auto
 	#设置SSH Key
 	echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""Enter file in which to save the key (/home/zc/.ssh/id_rsa):(按下回车键)"
