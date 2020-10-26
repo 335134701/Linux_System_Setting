@@ -86,7 +86,7 @@ function QT_Install()
 	Determine_SoftwareFold_Exist "QT"
 	#QT下载网址：http://download.qt.io/archive/qt/
 	cd ${HOME}/Software/QT
-	local filePath=${HOME}/Desktop/Software/qt-opensource-linux-x64-5.9.0.run
+	local filePath=${HOME}/桌面/Software/qt-opensource-linux-x64-5.9.0.run
 	if [ ! -f ${filePath} ];then
 		echo -e ${ERRORTime}"\033[31mThe file \"${filePath}\" does not exist, the program is about to terminate execution!\033[0m"
 		return 90	

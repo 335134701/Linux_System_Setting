@@ -21,7 +21,7 @@ function Sougou_Install()
 	#判断Software目录是否存在
 	Determine_SoftwareFold_Exist "Sougou"
 	cd ${HOME}/Software/Sougou
-	local filePath=${HOME}/Desktop/Software/sogoupinyin_*.deb
+	local filePath=${HOME}/桌面/Software/sogoupinyin_*.deb
 	if [ ! -f ${filePath} ];then
 		echo -e ${ERRORTime}"\033[31mThe file \"${filePath}\" does not exist, the program is about to terminate execution!\033[0m"
 		return 90	
