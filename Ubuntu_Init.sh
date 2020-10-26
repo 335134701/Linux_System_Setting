@@ -145,17 +145,19 @@ function Main()
 	Software_Install "Chang_YUM"
 	#Step 4:执行卸载Ubuntu自带软件函数
 	Software_Install "Remove_Unusing_Software"
-	#Step 5:安装一些需要默认的软件，例如vim
+	#Step 5:默认配置文件设置
+	Software_Install "Default_Configuration"
+	#Step 6:安装一些需要默认的软件，例如vim
 	Software_Install "Default_Software_Install"
-	#Step 6:安装搜狗拼音输入法
+	#Step 7:安装搜狗拼音输入法
 	Software_Install "Sougou_Install"
-	#Step 7:安装谷歌浏览器
+	#Step 8:安装谷歌浏览器
 	Software_Install "Chrome_Install"
-	#Step 8:安装JDK
+	#Step 9:安装JDK
 	Software_Install "JDK_Install"
-	#Step 9:安装系统镜像制作软件
+	#Step 10:安装系统镜像制作软件
 	Software_Install "Systembach_Install"
-	#Step 10:安装QT
+	#Step 11:安装QT
 	Software_Install "QT_Install"
 }
 Main
