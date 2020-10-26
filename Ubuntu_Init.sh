@@ -68,8 +68,8 @@ function Default_Configuration()
 		sed -i 's/'"^GRUB_TIMEOUT.*/GRUB_TIMEOUT=5"'/g' ${fileName}
 		Judge_Order "sed -i 's/'\"^GRUB_TIMEOUT.*/GRUB_TIMEOUT=5\"'/g' ${fileName}" 1
 		#设置默认选择系统选项
-		sed -i 's/'"^GRUB_DEFAULT.*/GRUB_DEFAULT=4"'/g' ${fileName}
-		Judge_Order "sed -i 's/'\"^GRUB_DEFAULT.*/GRUB_DEFAULT=4\"'/g' ${fileName}" 1
+		sed -i 's/'"^GRUB_DEFAULT.*/GRUB_DEFAULT=2"'/g' ${fileName}
+		Judge_Order "sed -i 's/'\"^GRUB_DEFAULT.*/GRUB_DEFAULT=2\"'/g' ${fileName}" 1
 		sudo chmod -x /etc/default/grub
 		sudo update-grub
 	else  
