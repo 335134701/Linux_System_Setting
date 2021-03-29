@@ -1,4 +1,4 @@
-#! /bin/bash
+-#! /bin/bash
 
 #**********************************************************
 # 错误代码说明：
@@ -356,7 +356,7 @@ function Install_Firewall()
 	sudo apt-get install ufw -y
 	#启用防火墙
 	sudo ufw enable
-	#关闭外部对本机访问
+	#关闭外部对本机访问   
 	sudo ufw default deny
 	Judge_Order "sudo ufw default deny" 0
 	sudo ufw allow 3306
@@ -481,8 +481,6 @@ function Install_VSftp()
 	Judge_Txt "#xferlog_std_format" "xferlog_std_format"
 	Judge_Txt "#idle_session_timeout" "idle_session_timeout"
 	Judge_Txt "#data_connection_timeout" "data_connection_timeout"
-    Judge_Txt "#ascii_upload.*" "ascii_upload_enable=YES"
-	Judge_Txt "#ascii_download.*" "ascii_download_enable=YES"
 	Judge_Txt "#ftpd_banner" "ftpd_banner"
 	Judge_Txt "#chroot_local.*" "chroot_local_user=NO"
 	Judge_Txt "#chroot_list_enable" "chroot_list_enable"

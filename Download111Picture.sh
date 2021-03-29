@@ -17,22 +17,26 @@ function Welcome()
 {
 	echo
 	echo
-	echo
 	echo -e "\033[34m*****************************************************\033[0m"
 	echo -e "\033[34m**                                                 **\033[0m"
 	echo -e "\033[34m**                                                 **\033[0m"
 	echo -e "\033[34m**                                                 **\033[0m"
-	((num=26-${#0}))
-	if [ ${num} -gt 0 ];then
-		echo -e "\033[34m**              Welcome to \033[0m\033[33m${0#*/}\c\033[0m"
-		for((i=0;i<${num};i++))
+	local localFileName=${0#*/}
+	((bitNum=(49-11-${#localFileName})/2))
+	if [ ${#localFileName} -lt 38 ];then
+		echo -e "\033[34m**\033[0m\c"
+		for((i=0;i<${bitNum};i++))
+		do
+			echo -e " \c"
+		done
+		echo -e "\033[34mWelcome to \033[0m\033[33m${localFileName}\033[0m\c"
+		((bitNum=49-${bitNum}-11-${#localFileName}))
+		for((i=0;i<${bitNum};i++))
 		do
 			echo -e " \c"
 		done
 		echo -e "\033[34m**\033[0m\c"
 		echo
-	else
-		echo -e "\033[34m**              Welcome to \033[0m\033[33m${0#*/}\033[0m"
 	fi
 	echo -e "\033[34m**                                                 **\033[0m"
 	echo -e "\033[34m**                                                 **\033[0m"
@@ -40,20 +44,19 @@ function Welcome()
 	echo -e "\033[34m*****************************************************\033[0m"
 	echo
 	echo
-	echo
 }
 function GetParameter()
 {
     echo
     local Url_tmp=''
-    for ((i=1;i<=${Number};i++))
+    for ((i=${Startnumber};i<=${Endnumber};i++))
     do 
        for((j=1;j<=20;j++)); do
             Url_tmp=${URL}/${i}/${j}.jpg
             echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  "${Url_tmp}
             echo ${Url_tmp} >> ${filename} 
        done
-       if [ ${i} -ne ${Number} ];then
+       if [ ${i} -ne ${Endnumber} ];then
             echo  >> ${filename}
             echo "----分界线----" >> ${filename}
             echo  >> ${filename}
@@ -68,7 +71,7 @@ function Download()
 {
     echo
     local localURLDir=${localDir}/URL
-    local number=1
+    local number=${Startnumber}
     mkdir -p ${localURLDir}/${number}
     echo "====================开始进行下载============================"
     if [ -f ${filename} ]; then
@@ -76,7 +79,7 @@ function Download()
         do
             if [ ${line} != "----分界线----" ]; then
                 echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  "${line}
-                wget -c -T 20 -w 1 -P ${localURLDir}/${number}  ${line}
+                wget -nv -c -T 20 -t 5 -w 1 -P ${localURLDir}/${number}  ${line}
                 if [ ${?} -eq 0 ];then
                     echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  "${line}" 下载成功!"
                     echo
@@ -86,7 +89,7 @@ function Download()
                     echo
                 fi
             else
-                $((number=number+1))
+                number=$[ ${number}+1 ]
                 mkdir -p ${localURLDir}/${number}
             fi   
         done
@@ -94,11 +97,12 @@ function Download()
         echo -e "[\033[31m$(date +"%Y-%m-%d %T") Error\033[0m]  ""文件：${filename} 不存在!"
     fi
     echo "====================下载结束============================"
-    tar -zcxf ${localDir}/Picture.tar.gz ${localDir}/*
+    echo
+    tar --warning=no-file-changed -zcvf ${localDir}/${localDir##*/}_Picture.tar.gz ${localDir}/* >/dev/null 2>&1
     if [ ${?} -eq 0 ];then
-        echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""${localDir}/Picture.tar.gz 文件创建成功!"
+        echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""${localDir}/${localDir##*/}_Picture.tar.gz 文件创建成功!"
     else
-        echo -e "[\033[31m$(date +"%Y-%m-%d %T") Error\033[0m]  ""${localDir}/Picture.tar.gz 文件创建失败!"
+        echo -e "[\033[31m$(date +"%Y-%m-%d %T") Error\033[0m]  ""${localDir}/${localDir##*/}_Picture.tar.gz 文件创建失败!"
     fi
     echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""\033[34mThe method \"Download()\" run success!\033[0m"
 	echo 
@@ -108,12 +112,6 @@ function Main()
     #*************************************************************#
     #连接地址
     URL=https://img.cache010.com/media/videos/tmb
-    #数量4884
-    if [ ${#} -eq 1 ];then
-        Number=${1}
-    else
-        Number=4884
-    fi
     #目录路径
     localDir=${HOME}/www/$(date +"%Y%m%d_%H%M%S")_URL
     #备份文件
@@ -126,9 +124,35 @@ function Main()
     GetParameter
     Download
 }
-if [ ${#} -eq 1 ]; then
-    Main ${1}
-else
-    Main
-fi
-#Main
+#数量4884
+#开头数目
+Startnumber=1
+#结尾数目
+Endnumber=4884
+while getopts "s:e:v" arg
+do
+    case "${arg}" in
+        s)
+            Startnumber=${OPTARG}
+            echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""根据输入，将从 ${Startnumber} 处开始下载!"
+        ;;
+        e)
+            if [ ${OPTARG} -ge ${Startnumber} ]; then
+                Endnumber=${OPTARG}
+                echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""根据输入，将从 ${Endnumber} 处结束下载!"
+            else
+                echo -e "[\033[31m$(date +"%Y-%m-%d %T") Error\033[0m]  ""输入数字小于开始数字，将采取默认结束位置进行下载"  
+            fi
+        ;;
+        v)
+            echo -e "[\033[33m$(date +"%Y-%m-%d %T") Warn\033[0m]  ""此字符操作无效,默认从 ${Startnumber} 处开始下载!"
+            echo -e "[\033[33m$(date +"%Y-%m-%d %T") Warn\033[0m]  ""此字符操作无效,默认从 ${Endnumber} 处结束下载!"
+        ;;
+        *)
+            echo -e "[\033[33m$(date +"%Y-%m-%d %T") Warn\033[0m]  ""参数输入有误,默认从 ${Startnumber} 处开始下载!"
+            echo -e "[\033[33m$(date +"%Y-%m-%d %T") Warn\033[0m]  ""参数输入有误,默认从 ${Endnumber} 处结束下载!"
+        ;;
+    esac
+done
+Main
+

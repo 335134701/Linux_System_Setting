@@ -17,28 +17,31 @@ function Welcome()
 {
 	echo
 	echo
-	echo
 	echo -e "\033[34m*****************************************************\033[0m"
 	echo -e "\033[34m**                                                 **\033[0m"
 	echo -e "\033[34m**                                                 **\033[0m"
 	echo -e "\033[34m**                                                 **\033[0m"
-	((num=26-${#0}))
-	if [ ${num} -gt 0 ];then
-		echo -e "\033[34m**              Welcome to \033[0m\033[33m${0#*/}\c\033[0m"
-		for((i=0;i<${num};i++))
+	local localFileName=${0#*/}
+	((bitNum=(49-11-${#localFileName})/2))
+	if [ ${#localFileName} -lt 38 ];then
+		echo -e "\033[34m**\033[0m\c"
+		for((i=0;i<${bitNum};i++))
+		do
+			echo -e " \c"
+		done
+		echo -e "\033[34mWelcome to \033[0m\033[33m${localFileName}\033[0m\c"
+		((bitNum=49-${bitNum}-11-${#localFileName}))
+		for((i=0;i<${bitNum};i++))
 		do
 			echo -e " \c"
 		done
 		echo -e "\033[34m**\033[0m\c"
 		echo
-	else
-		echo -e "\033[34m**              Welcome to \033[0m\033[33m${0#*/}\033[0m"
 	fi
 	echo -e "\033[34m**                                                 **\033[0m"
 	echo -e "\033[34m**                                                 **\033[0m"
 	echo -e "\033[34m**                                                 **\033[0m"
 	echo -e "\033[34m*****************************************************\033[0m"
-	echo
 	echo
 	echo
 }
