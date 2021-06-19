@@ -101,7 +101,8 @@ function Main()
     #数量
     Number=0
     #目录路径
-    localDir=${HOME}/www/$(date +"%Y%m%d_%H%M%S")_URL
+    #localDir=${HOME}/www/$(date +"%Y%m%d_%H%M%S")_URL
+    localDir=${HOME}/vsftpd/$(date +"%Y%m%d_%H%M%S")_URL
     #备份文件
     filename=${localDir}/$(date +"%Y%m%d_%H%M%S")_URL.txt
     #下载失败的文件列表
@@ -110,6 +111,6 @@ function Main()
     Welcome
     mkdir -p ${localDir}
     GetParameter
-    Download
+    #Download
 }
 Main

@@ -49,9 +49,9 @@ function Local_Push()
 function Main(){
 	#=======================================================
 	#参数更改
-	repository=git@github.com:335134701/Git.git
+	repository=git@github.com:335134701/Linux_Demo.git
 	localDir=$(pwd)
-	localDirName=main
+	localDirName=${localDir##*/}
 	#=======================================================
 	git --version >/dev/null 2>&1
 	Judge_Order "Git已安装!" "Git未安装!" 0
