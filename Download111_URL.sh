@@ -60,6 +60,7 @@ function GetParameter()
     if [ -z ${Number} ]; then
         Number=0
     fi
+    URL=${URL%video*}video
     if [ ${Number} -eq 0 -o -z ${URL} ];then
         echo -e "[\033[31m$(date +"%Y-%m-%d %T") Error\033[0m]  ""参数输入异常,程序结束!"
         exit 127
@@ -81,6 +82,7 @@ function GetParameter()
     done
     echo -e "[\033[32m$(date +"%Y-%m-%d %T") Info\033[0m]  ""\033[34mThe method \"GetParameter()\" run success!\033[0m"
 	echo 
+
 }
 function Download()
 {
